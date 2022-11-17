@@ -15,7 +15,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        var user = userRepository.findByUsername(username);
+        var user = userRepository.findUserByUsername(username);
         return user.map(SecurityUser::new)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found " + username));
     }
