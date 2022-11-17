@@ -6,12 +6,13 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "authorities")
 @Data
-public class Role {
+public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToMany(mappedBy = "roles")
+    private String role;
+    @ManyToMany(mappedBy = "authorities")
     private Set<User> users;
 }
