@@ -22,7 +22,7 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String key = String.valueOf(request.getHeader("key"));
         CustomAuthentication customAuthentication = new CustomAuthentication(false, key);
-        var auth = customAuthenticationManager.authenticate(null);
+        var auth = customAuthenticationManager.authenticate(customAuthentication);
         if (auth.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(auth);
             filterChain.doFilter(request, response);
