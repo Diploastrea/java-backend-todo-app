@@ -11,8 +11,8 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String registration() {
-        var user = SecurityContextHolder.getContext().getAuthentication();
-        user.getAuthorities().forEach(System.out::println);
+        // var user = SecurityContextHolder.getContext().getAuthentication();
+        // user.getAuthorities().forEach(System.out::println);
         return "it works";
     }
 }
