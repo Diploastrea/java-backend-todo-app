@@ -1,5 +1,6 @@
 package com.example.javabackendtodoapp.configurations.security.filters;
 
+import com.example.javabackendtodoapp.configurations.security.authentication.CustomAuthentication;
 import com.example.javabackendtodoapp.configurations.security.managers.CustomAuthenticationManager;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,8 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String key = String.valueOf(request.getHeader("key"));
+        CustomAuthentication customAuthentication = new CustomAuthentication(false, key);
         var auth = customAuthenticationManager.authenticate(null);
         if (auth.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(auth);
