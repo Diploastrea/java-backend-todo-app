@@ -1,15 +1,13 @@
 package com.example.javabackendtodoapp.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "authorities")
-@Getter
-@Setter
+@Data
 public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
