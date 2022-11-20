@@ -1,23 +1,21 @@
-package com.example.javabackendtodoapp.configurations.security.managers;
+package com.example.javabackendtodoapp.configurations.managers;
 
-import com.example.javabackendtodoapp.configurations.security.providers.CustomAuthenticationProvider;
+import com.example.javabackendtodoapp.configurations.providers.ApiKeyProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.stereotype.Component;
 
-@Component
 @AllArgsConstructor
 public class CustomAuthenticationManager implements AuthenticationManager {
-    private final CustomAuthenticationProvider provider;
+    private final String key;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        var provider = new ApiKeyProvider(key);
         if (provider.supports(authentication.getClass())) {
             return provider.authenticate(authentication);
         }
-        throw new BadCredentialsException("Invalid credentials!");
+        return authentication;
     }
 }

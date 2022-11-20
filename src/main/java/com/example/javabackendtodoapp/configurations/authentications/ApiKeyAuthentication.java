@@ -1,7 +1,6 @@
-package com.example.javabackendtodoapp.configurations.security.authentication;
+package com.example.javabackendtodoapp.configurations.authentications;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Data;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -9,10 +8,23 @@ import javax.security.auth.Subject;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-@Data
 public class ApiKeyAuthentication implements Authentication {
     private final String key;
     private boolean authenticated;
+
+    @Override
+    public boolean isAuthenticated() {
+        return authenticated;
+    }
+
+    @Override
+    public void setAuthenticated(boolean authenticated) throws IllegalArgumentException {
+        this.authenticated = authenticated;
+    }
+
+    public String getKey() {
+        return this.key;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -32,16 +44,6 @@ public class ApiKeyAuthentication implements Authentication {
     @Override
     public Object getPrincipal() {
         return null;
-    }
-
-    @Override
-    public boolean isAuthenticated() {
-        return authenticated;
-    }
-
-    @Override
-    public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-
     }
 
     @Override
