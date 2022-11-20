@@ -1,6 +1,6 @@
 package com.example.javabackendtodoapp.configurations;
 
-import com.example.javabackendtodoapp.configurations.security.filters.CustomAuthenticationFilter;
+import com.example.javabackendtodoapp.configurations.security.filters.ApiKeyFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +11,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @AllArgsConstructor
 public class SecurityConfiguration {
-    private final CustomAuthenticationFilter customAuthenticationFilter;
+    private final ApiKeyFilter apiKeyFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
-                .addFilterAt(customAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(apiKeyFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests().anyRequest().authenticated()
                 .and().build();
     }

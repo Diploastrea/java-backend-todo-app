@@ -1,6 +1,6 @@
 package com.example.javabackendtodoapp.configurations.security.authentication;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,11 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.security.auth.Subject;
 import java.util.Collection;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Data
-public class CustomAuthentication implements Authentication {
-    private final boolean authentication;
+public class ApiKeyAuthentication implements Authentication {
     private final String key;
+    private boolean authenticated;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -36,7 +36,7 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public boolean isAuthenticated() {
-        return authentication;
+        return authenticated;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.example.javabackendtodoapp.configurations.security.providers;
 
-import com.example.javabackendtodoapp.configurations.security.authentication.CustomAuthentication;
+import com.example.javabackendtodoapp.configurations.security.authentication.ApiKeyAuthentication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,16 +15,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        CustomAuthentication customAuthentication = (CustomAuthentication) authentication;
-        String headerKey = customAuthentication.getKey();
+        ApiKeyAuthentication apiKeyAuthentication = (ApiKeyAuthentication) authentication;
+        String headerKey = apiKeyAuthentication.getKey();
         if (key.equals(headerKey)) {
-            return new CustomAuthentication(true, null);
+            return new ApiKeyAuthentication(true, null);
         }
         throw new BadCredentialsException("Invalid credentials!");
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return CustomAuthentication.class.equals(authentication);
+        return ApiKeyAuthentication.class.equals(authentication);
     }
 }
